@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*��������ɫ*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*��Ӱ��ɫ*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*�ϱ߿���ɫ*/
+        border-left-color: #1E92FB;    /*��߿���ɫ*/
+    }
+</style>
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java Netty," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Netty是由JBOSS提供的一个java开源框架。Netty提供异步的、事件驱动的网络应用程序框架和工具，用以快速开发高性能、高可靠性的网络服务器和客户端程序。也就是说，Netty 是一个基于NIO的客户、服务器端编程框架，使用Netty 可以确保你快速和简单的开发出一个网络应用，例如实现了某种协议的客户，服务端应用。Netty相当简化和流线化了网络应用的编程开发过程，例如，TCP和UDP的so">
+<meta name="keywords" content="Java Netty">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Netty 实战笔记之传输">
+<meta property="og:url" content="http://yoursite.com/2018/03/10/Netty-实战笔记之传输/index.html">
+<meta property="og:site_name" content="EzHomeSixGod">
+<meta property="og:description" content="Netty是由JBOSS提供的一个java开源框架。Netty提供异步的、事件驱动的网络应用程序框架和工具，用以快速开发高性能、高可靠性的网络服务器和客户端程序。也就是说，Netty 是一个基于NIO的客户、服务器端编程框架，使用Netty 可以确保你快速和简单的开发出一个网络应用，例如实现了某种协议的客户，服务端应用。Netty相当简化和流线化了网络应用的编程开发过程，例如，TCP和UDP的so">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-10T05:43:46.239Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Netty 实战笔记之传输">
+<meta name="twitter:description" content="Netty是由JBOSS提供的一个java开源框架。Netty提供异步的、事件驱动的网络应用程序框架和工具，用以快速开发高性能、高可靠性的网络服务器和客户端程序。也就是说，Netty 是一个基于NIO的客户、服务器端编程框架，使用Netty 可以确保你快速和简单的开发出一个网络应用，例如实现了某种协议的客户，服务端应用。Netty相当简化和流线化了网络应用的编程开发过程，例如，TCP和UDP的so">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/10/Netty-实战笔记之传输/"/>
+
+
+
+
+
+  <title>Netty 实战笔记之传输 | EzHomeSixGod</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/EzHomeSixGod"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">EzHomeSixGod</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/10/Netty-实战笔记之传输/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="EzHomeSixGod">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/th.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EzHomeSixGod">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Netty 实战笔记之传输</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-10T13:35:20+08:00">
+                2018-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java-Netty/" itemprop="url" rel="index">
+                    <span itemprop="name">Java Netty</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Netty是由JBOSS提供的一个java开源框架。Netty提供异步的、事件驱动的网络应用程序框架和工具，用以快速开发高性能、高可靠性的网络服务器和客户端程序。<br>也就是说，Netty 是一个基于NIO的客户、服务器端编程框架，使用Netty 可以确保你快速和简单的开发出一个网络应用，例如实现了某种协议的客户，服务端应用。Netty相当简化和流线化了网络应用的编程开发过程，例如，TCP和UDP的socket服务开发。<br>“快速”和“简单”并不用产生维护性或性能上的问题。Netty 是一个吸收了多种协议的实现经验，这些协议包括FTP,SMTP,HTTP，各种二进制，文本协议，并经过相当精心设计的项目，最终，Netty 成功的找到了一种方式，在保证易于开发的同时还保证了其应用的性能，稳定性和伸缩性。</p>
+<a id="more"></a>
+<h1 id="1-Netty-之传输"><a href="#1-Netty-之传输" class="headerlink" title="1. Netty 之传输"></a>1. Netty 之传输</h1><ol>
+<li>OIO——阻塞传输</li>
+<li>NIO——异步传输</li>
+<li>Local——JVM内部异步传输</li>
+<li>Embedded——测试ChannelHander</li>
+</ol>
+<p>流经网络的数据总是具有相同的类型——字节。这些字节是如何流动的主要取决于我们所说的网络传输(一个帮助我们抽象底层数据传输机制的概念)。用户并不关心这些细节，他们只是想确保他们的字节数据被可靠的发送和接受。</p>
+<p>如果你有 Java 网络编程的经验，那么你可能已经发现，在某些时候，你需要支撑比预期多<br>很多的并发连接。</p>
+<p>然而，Netty 为它所有的传输实现提供了一个通用 API，这使得这种转换比你直接使用 JDK<br>所能够达到的简单得多。</p>
+<h3 id="1-1-传统的OIO和NIO"><a href="#1-1-传统的OIO和NIO" class="headerlink" title="1.1 传统的OIO和NIO"></a>1.1 传统的OIO和NIO</h3><p>先看看不使用Netty,仅使用传统的JDK API的阻塞（OIO）版本和异步（NIO）版本.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">public class PlainOioServer &#123;</span><br><span class="line">        public void serve(int port) throws IOException &#123;</span><br><span class="line">            final ServerSocket socket = new ServerSocket(port);</span><br><span class="line">            try &#123;</span><br><span class="line">                for (;;) &#123;</span><br><span class="line">                    final Socket clientSocket = socket.accept();</span><br><span class="line">                    System.out.println(</span><br><span class="line">                            &quot;Accepted connection from &quot; + clientSocket);</span><br><span class="line">                    new Thread(new Runnable() &#123;</span><br><span class="line">                        @Override</span><br><span class="line">                        public void run() &#123;</span><br><span class="line">                            OutputStream out;</span><br><span class="line">                            try &#123;</span><br><span class="line">                                out = clientSocket.getOutputStream();</span><br><span class="line">                                out.write(&quot;Hi!\r\n&quot;.getBytes(</span><br><span class="line">                                        Charset.forName(&quot;UTF-8&quot;)));</span><br><span class="line">                                out.flush();</span><br><span class="line">                                clientSocket.close();</span><br><span class="line">                            &#125;</span><br><span class="line">                            catch (IOException e) &#123;</span><br><span class="line">                                e.printStackTrace();</span><br><span class="line">                            &#125;</span><br><span class="line">                            finally &#123;</span><br><span class="line">                                try &#123;</span><br><span class="line">                                    clientSocket.close();</span><br><span class="line">                                &#125;</span><br><span class="line">                                catch (IOException ex) &#123;</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;).start();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            catch (IOException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码完全可以处理中等数量的并发客户端。但是随着应用程序变得流行起来，你会发现<br>它并不能很好地伸缩到支撑成千上万的并发连入连接。你决定改用异步网络编程，但是很快就发<br>现异步 API 是完全不同的，以至于现在你不得不重写你的应用程序。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">public class PlainNioServer &#123;</span><br><span class="line">        public void serve(int port) throws IOException &#123;</span><br><span class="line">            ServerSocketChannel serverChannel = ServerSocketChannel.open();</span><br><span class="line">            serverChannel.configureBlocking(false);</span><br><span class="line">            ServerSocket ssocket = serverChannel.socket();</span><br><span class="line">            InetSocketAddress address = new InetSocketAddress(port);</span><br><span class="line">            ssocket.bind(address);</span><br><span class="line">            Selector selector = Selector.open();</span><br><span class="line">            serverChannel.register(selector, SelectionKey.OP_ACCEPT);</span><br><span class="line">            final ByteBuffer msg = ByteBuffer.wrap(&quot;Hi!\r\n&quot;.getBytes());</span><br><span class="line">            for (;;) &#123;</span><br><span class="line">                try &#123;</span><br><span class="line">                    selector.select();</span><br><span class="line">                &#125; catch (IOException ex) &#123;</span><br><span class="line">                    ex.printStackTrace();</span><br><span class="line">// handle exception</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                Set&lt;SelectionKey&gt; readyKeys = selector.selectedKeys();</span><br><span class="line">                Iterator&lt;SelectionKey&gt; iterator = readyKeys.iterator();</span><br><span class="line">                while (iterator.hasNext()) &#123;</span><br><span class="line">                    SelectionKey key = iterator.next();</span><br><span class="line">                    iterator.remove();</span><br><span class="line">                    try &#123;</span><br><span class="line">                        if (key.isAcceptable()) &#123;</span><br><span class="line">                            ServerSocketChannel server =</span><br><span class="line">                                    (ServerSocketChannel)key.channel();</span><br><span class="line">                            SocketChannel client = server.accept();</span><br><span class="line">                            client.configureBlocking(false);</span><br><span class="line">                            client.register(selector, SelectionKey.OP_WRITE |</span><br><span class="line">                                    SelectionKey.OP_READ, msg.duplicate());</span><br><span class="line">                            System.out.println(</span><br><span class="line">                                    &quot;Accepted connection from &quot; + client);</span><br><span class="line">                        &#125;</span><br><span class="line">                        if (key.isWritable()) &#123;</span><br><span class="line">                            SocketChannel client =</span><br><span class="line">                                    (SocketChannel)key.channel();</span><br><span class="line">                            ByteBuffer buffer =</span><br><span class="line">                                    (ByteBuffer)key.attachment();</span><br><span class="line">                            while (buffer.hasRemaining()) &#123;</span><br><span class="line">                                if (client.write(buffer) == 0) &#123;</span><br><span class="line">                                    break;</span><br><span class="line">                                &#125;</span><br><span class="line">                            &#125;</span><br><span class="line">                            client.close();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; catch (IOException ex) &#123;</span><br><span class="line">                        key.cancel();</span><br><span class="line">                        try &#123;</span><br><span class="line">                            key.channel().close();</span><br><span class="line"></span><br><span class="line">                        &#125; catch (IOException cex) &#123;</span><br><span class="line">// ignore on close</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>如同你所看到的，虽然这段代码所做的事情与之前的版本完全相同，但是代码却截然不同。<br>如果为了用于非阻塞 I/O 而重新实现这个简单的应用程序，都需要一次完全的重写的话，那么不<br>难想象，移植真正复杂的应用程序需要付出什么样的努力。<br>鉴于此，让我们来看看使用 Netty 实现该应用程序将会是什么样子吧。</p>
+<h3 id="1-2-Netty实现的OIO-和NIO"><a href="#1-2-Netty实现的OIO-和NIO" class="headerlink" title="1.2 Netty实现的OIO 和NIO"></a>1.2 Netty实现的OIO 和NIO</h3><p>先来看看使用Netty实现OIO:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class NettyOioServer &#123;</span><br><span class="line">       public void server(int port) throws Exception &#123;</span><br><span class="line">           final ByteBuf buf = Unpooled.unreleasableBuffer(</span><br><span class="line">                   Unpooled.copiedBuffer(&quot;Hi!\r\n&quot;, Charset.forName(&quot;UTF-8&quot;)));</span><br><span class="line">           EventLoopGroup group = new OioEventLoopGroup();</span><br><span class="line">           try &#123;</span><br><span class="line">               ServerBootstrap b = new ServerBootstrap();</span><br><span class="line">               b.group(group)</span><br><span class="line">                       .channel(OioServerSocketChannel.class)</span><br><span class="line">                       .localAddress(new InetSocketAddress(port))</span><br><span class="line">                       .childHandler(new ChannelInitializer&lt;SocketChannel&gt;() &#123;</span><br><span class="line">                           @Override</span><br><span class="line">                           public void initChannel(SocketChannel ch)</span><br><span class="line">                                   throws Exception &#123;</span><br><span class="line">                               ch.pipeline().addLast(</span><br><span class="line">                                       new ChannelInboundHandlerAdapter() &#123;</span><br><span class="line">                                           @Override</span><br><span class="line">                                           public void channelActive(</span><br><span class="line">                                                   ChannelHandlerContext ctx)</span><br><span class="line">                                                   throws Exception &#123;</span><br><span class="line">                                               ctx.writeAndFlush(buf.duplicate())</span><br><span class="line">                                                       .addListener(</span><br><span class="line">                                                               ChannelFutureListener.CLOSE);</span><br><span class="line">                                           &#125;</span><br><span class="line">                                       &#125;);</span><br><span class="line">                           &#125;</span><br><span class="line">                       &#125;);</span><br><span class="line">               ChannelFuture f = b.bind().sync();</span><br><span class="line">               f.channel().closeFuture().sync();</span><br><span class="line">           &#125; finally &#123;</span><br><span class="line">               group.shutdownGracefully().sync();</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>接下来，我们使用 Netty 和非阻塞 I/O 来实现同样的逻辑。你会发现Netty 为我们处理两者之间的差异,只需要改动一点点就可以从OIO 转换到NIO.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">public class NettyNioServer &#123;</span><br><span class="line">        public void server(int port) throws Exception &#123;</span><br><span class="line">            final ByteBuf buf = Unpooled.copiedBuffer(&quot;Hi!\r\n&quot;,</span><br><span class="line">                    Charset.forName(&quot;UTF-8&quot;));</span><br><span class="line">            EventLoopGroup group = new NioEventLoopGroup();</span><br><span class="line">            try &#123;</span><br><span class="line">                ServerBootstrap b = new ServerBootstrap();</span><br><span class="line">                b.group(group).channel(NioServerSocketChannel.class)</span><br><span class="line">                        .localAddress(new InetSocketAddress(port))</span><br><span class="line">                        .childHandler(new ChannelInitializer&lt;SocketChannel&gt;() &#123;</span><br><span class="line">                            @Override</span><br><span class="line">                            public void initChannel(SocketChannel ch)</span><br><span class="line">                                    throws Exception&#123;</span><br><span class="line">                                ch.pipeline().addLast(</span><br><span class="line">                                        new ChannelInboundHandlerAdapter() &#123;</span><br><span class="line">                                            @Override</span><br><span class="line">                                            public void channelActive(</span><br><span class="line">                                                    ChannelHandlerContext ctx) throws Exception &#123;</span><br><span class="line">                                                ctx.writeAndFlush(buf.duplicate())</span><br><span class="line">                                                        .addListener(</span><br><span class="line">                                                                ChannelFutureListener.CLOSE);</span><br><span class="line">                                            &#125;</span><br><span class="line">                                        &#125;);</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125;);</span><br><span class="line">                ChannelFuture f = b.bind().sync();</span><br><span class="line">                f.channel().closeFuture().sync();</span><br><span class="line">            &#125; finally &#123;</span><br><span class="line">                group.shutdownGracefully().sync();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>因为 Netty 为每种传输的实现都暴露了相同的API，所以无论选用哪一种传输的实现，你的<br>代码都仍然几乎不受影响。在所有的情况下，传输的实现都依赖于 interface Channel、ChannelPipeline 和 ChannelHandler。在看过一些使用基于 Netty的传输的这些优点之后，让我们仔细看看传输 API 本身。</p>
+
+      
+    </div>
+    
+    
+    
+ 
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------���Ľ���<i class="fa fa-paw"></i>��л�����Ķ�-------------</div>
+    
+</div>
+      </div>
+    
+<div>
+      
+        
+      
+</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java-Netty/" rel="tag"><i class="fa fa-tag"></i> Java Netty</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/09/Java-ClassLoader/" rel="next" title="Java类加载器">
+                <i class="fa fa-chevron-left"></i> Java类加载器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/10/Hexo-博客搭建/" rel="prev" title="Hexo 博客搭建">
+                Hexo 博客搭建 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/th.jpg"
+                alt="EzHomeSixGod" />
+            
+              <p class="site-author-name" itemprop="name">EzHomeSixGod</p>
+              <p class="site-description motion-element" itemprop="description">理想公式：try {t = "love";return t;} catch (Exception e) {t = "money";return t;} finally {t = "money and love";return t;}</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.github.com/EzHomeSixGod" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/c3a3fa14c147" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-globe"></i>简书</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Netty-之传输"><span class="nav-number">1.</span> <span class="nav-text">1. Netty 之传输</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-传统的OIO和NIO"><span class="nav-number">1.0.1.</span> <span class="nav-text">1.1 传统的OIO和NIO</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Netty实现的OIO-和NIO"><span class="nav-number">1.0.2.</span> <span class="nav-text">1.2 Netty实现的OIO 和NIO</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">EzHomeSixGod</span>
+
+  
+</div>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+</body>
+</html>

@@ -100,18 +100,18 @@
 
 
 
-<meta name="description" content="自定义ClaaLoader加载类文件类加载器是JVM执行类加载机制的前提，其主要任务为根据一个类的全限定名来读取此类的二进制字节流到JVM内部，然后转换为一个与目标类对应的java.lang.Class对象实例 &amp;lt; !–more–&amp;gt;  defineClass();  defineClass方法 的主要作用是将byte 字节流解析成JVM能够识别的class对象，这个方法意味着 我们不仅">
+<meta name="description" content="自定义ClaaLoader加载类文件类加载器是JVM执行类加载机制的前提，其主要任务为根据一个类的全限定名来读取此类的二进制字节流到JVM内部，然后转换为一个与目标类对应的java.lang.Class对象实例">
 <meta name="keywords" content="Java ClassLoader">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java类加载器">
 <meta property="og:url" content="http://yoursite.com/2018/03/09/Java-ClassLoader/index.html">
 <meta property="og:site_name" content="EzHomeSixGod">
-<meta property="og:description" content="自定义ClaaLoader加载类文件类加载器是JVM执行类加载机制的前提，其主要任务为根据一个类的全限定名来读取此类的二进制字节流到JVM内部，然后转换为一个与目标类对应的java.lang.Class对象实例 &amp;lt; !–more–&amp;gt;  defineClass();  defineClass方法 的主要作用是将byte 字节流解析成JVM能够识别的class对象，这个方法意味着 我们不仅">
+<meta property="og:description" content="自定义ClaaLoader加载类文件类加载器是JVM执行类加载机制的前提，其主要任务为根据一个类的全限定名来读取此类的二进制字节流到JVM内部，然后转换为一个与目标类对应的java.lang.Class对象实例">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-10T05:28:58.474Z">
+<meta property="og:updated_time" content="2018-03-10T05:29:52.632Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java类加载器">
-<meta name="twitter:description" content="自定义ClaaLoader加载类文件类加载器是JVM执行类加载机制的前提，其主要任务为根据一个类的全限定名来读取此类的二进制字节流到JVM内部，然后转换为一个与目标类对应的java.lang.Class对象实例 &amp;lt; !–more–&amp;gt;  defineClass();  defineClass方法 的主要作用是将byte 字节流解析成JVM能够识别的class对象，这个方法意味着 我们不仅">
+<meta name="twitter:description" content="自定义ClaaLoader加载类文件类加载器是JVM执行类加载机制的前提，其主要任务为根据一个类的全限定名来读取此类的二进制字节流到JVM内部，然后转换为一个与目标类对应的java.lang.Class对象实例">
 
 
 
@@ -205,7 +205,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
             首页
           </a>
@@ -215,7 +215,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
             关于
           </a>
@@ -225,7 +225,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
             标签
           </a>
@@ -235,7 +235,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
             分类
           </a>
@@ -245,7 +245,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
             
             归档
           </a>
@@ -287,7 +287,7 @@
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/09/Java-ClassLoader/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Stacey">
+      <meta itemprop="name" content="EzHomeSixGod">
       <meta itemprop="description" content="">
       <meta itemprop="image" content="/images/th.jpg">
     </span>
@@ -374,7 +374,7 @@
 
       
         <h1 id="自定义ClaaLoader加载类文件"><a href="#自定义ClaaLoader加载类文件" class="headerlink" title="自定义ClaaLoader加载类文件"></a>自定义ClaaLoader加载类文件</h1><p>类加载器是JVM执行类加载机制的前提，其主要任务为根据一个类的全限定名来读取此类的二进制字节流到JVM内部，然后转换为一个与目标类对应的java.lang.Class对象实例</p>
-<p>&lt; !–more–&gt;</p>
+<a id="more"></a>
 <ol>
 <li>defineClass();</li>
 </ol>
@@ -430,6 +430,22 @@
       
       
 
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/10/Netty-实战笔记之传输/" rel="prev" title="Netty 实战笔记之传输">
+                Netty 实战笔记之传输 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
@@ -520,9 +536,9 @@ var jiathis_config={
             
               <img class="site-author-image" itemprop="image"
                 src="/images/th.jpg"
-                alt="Stacey" />
+                alt="EzHomeSixGod" />
             
-              <p class="site-author-name" itemprop="name">Stacey</p>
+              <p class="site-author-name" itemprop="name">EzHomeSixGod</p>
               <p class="site-description motion-element" itemprop="description">理想公式：try {t = "love";return t;} catch (Exception e) {t = "money";return t;} finally {t = "money and love";return t;}</p>
           </div>
 
@@ -533,7 +549,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -544,7 +560,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 
               </div>
@@ -555,7 +571,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>
@@ -575,27 +591,9 @@ var jiathis_config={
                   </span>
                 
                   <span class="links-of-author-item">
-                    <a href="https://www.953625227@qq.com" target="_blank" title="简书">
+                    <a href="https://www.jianshu.com/u/c3a3fa14c147" target="_blank" title="简书">
                       
                         <i class="fa fa-fw fa-globe"></i>简书</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://plus.google.com/yourname" target="_blank" title="开源中国">
-                      
-                        <i class="fa fa-fw fa-globe"></i>开源中国</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://twitter.com/yourname" target="_blank" title="掘金">
-                      
-                        <i class="fa fa-fw fa-globe"></i>掘金</a>
-                  </span>
-                
-                  <span class="links-of-author-item">
-                    <a href="https://www.facebook.com/yourname" target="_blank" title="微博">
-                      
-                        <i class="fa fa-fw fa-globe"></i>微博</a>
                   </span>
                 
             </div>
@@ -648,13 +646,13 @@ var jiathis_config={
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Stacey</span>
+  <span class="author" itemprop="copyrightHolder">EzHomeSixGod</span>
 
   
 </div>
 <div class="powered-by">
 <i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
-  ��վ�ÿ���:<span id="busuanzi_value_site_uv"></span>
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
 </span>
 </div>
 <!--

@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*��������ɫ*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*��Ӱ��ɫ*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*�ϱ߿���ɫ*/
+        border-left-color: #1E92FB;    /*��߿���ɫ*/
+    }
+</style>
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo Git Npm Node," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Hexo + gitHubPage +git博客搭建之前参照网上的教程完成了博客的搭建。现在开始第一篇的博客，心里有点小激动，毕竟第一次写博客，紧张。想了想第一篇还是记录下自己怎么搭建博客的？同时也让大家知道其实搭建博客不复杂，只要熟悉Linux命令和git命令都能搭建成功。当然网上的教程也是很多，而博主又是从零开始搭建。 大致流程如下: 环境搭建(包括Node Git) Github账号注册和配">
+<meta name="keywords" content="Hexo Git Npm Node">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo 博客搭建">
+<meta property="og:url" content="http://yoursite.com/2018/03/10/Hexo-博客搭建/index.html">
+<meta property="og:site_name" content="EzHomeSixGod">
+<meta property="og:description" content="Hexo + gitHubPage +git博客搭建之前参照网上的教程完成了博客的搭建。现在开始第一篇的博客，心里有点小激动，毕竟第一次写博客，紧张。想了想第一篇还是记录下自己怎么搭建博客的？同时也让大家知道其实搭建博客不复杂，只要熟悉Linux命令和git命令都能搭建成功。当然网上的教程也是很多，而博主又是从零开始搭建。 大致流程如下: 环境搭建(包括Node Git) Github账号注册和配">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://note.youdao.com/yws/api/personal/file/D9012A097A474D03A47461A2B26CD079?method=download&shareKey=c3011b9d213fea062bfcb60285d065e4">
+<meta property="og:image" content="http://note.youdao.com/yws/api/personal/file/BE8B4CE8ADA5423D9D79841A90683D97?method=download&shareKey=fa0be4bf92a0dbc75ef032d484a7fe28">
+<meta property="og:image" content="http://note.youdao.com/yws/api/personal/file/4E1DD3436896410D853F3BE6B156BB0D?method=download&shareKey=a1f9e6db3644ea5c29dbe6ff38454d1d">
+<meta property="og:image" content="http://note.youdao.com/yws/api/personal/file/1C8C5BF6F0444817A07F5EE765304086?method=download&shareKey=c6f90afe45b2913ee96aaac9841efbbd">
+<meta property="og:image" content="http://note.youdao.com/yws/api/personal/file/B4F0BD2337EF4FACBE4066AAAA8D5494?method=download&shareKey=9368798bd8246f208c4a27e29c936e1e">
+<meta property="og:image" content="http://note.youdao.com/yws/api/personal/file/F2C97513A9864D2A8CFEB1D19A9494F6?method=download&shareKey=daffe5b74d9ff12a07ccac8c114c61d8">
+<meta property="og:image" content="http://note.youdao.com/yws/api/personal/file/5000BF8334444B36B8A0337DDA58D052?method=download&shareKey=61b1acc536bb5d6325a4a1b7e4e141b4">
+<meta property="og:image" content="http://note.youdao.com/yws/api/personal/file/10679DD2467C423888AC62178666EC0B?method=download&shareKey=2b07ac984fbd8355ee645a2d9baae572">
+<meta property="og:updated_time" content="2018-03-10T05:47:54.174Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo 博客搭建">
+<meta name="twitter:description" content="Hexo + gitHubPage +git博客搭建之前参照网上的教程完成了博客的搭建。现在开始第一篇的博客，心里有点小激动，毕竟第一次写博客，紧张。想了想第一篇还是记录下自己怎么搭建博客的？同时也让大家知道其实搭建博客不复杂，只要熟悉Linux命令和git命令都能搭建成功。当然网上的教程也是很多，而博主又是从零开始搭建。 大致流程如下: 环境搭建(包括Node Git) Github账号注册和配">
+<meta name="twitter:image" content="http://note.youdao.com/yws/api/personal/file/D9012A097A474D03A47461A2B26CD079?method=download&shareKey=c3011b9d213fea062bfcb60285d065e4">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/10/Hexo-博客搭建/"/>
+
+
+
+
+
+  <title>Hexo 博客搭建 | EzHomeSixGod</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/EzHomeSixGod"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">EzHomeSixGod</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/10/Hexo-博客搭建/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="EzHomeSixGod">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/th.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EzHomeSixGod">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Hexo 博客搭建</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-10T13:44:21+08:00">
+                2018-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hexo/" itemprop="url" rel="index">
+                    <span itemprop="name">Hexo</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Hexo-gitHubPage-git博客搭建"><a href="#Hexo-gitHubPage-git博客搭建" class="headerlink" title="Hexo + gitHubPage +git博客搭建"></a>Hexo + gitHubPage +git博客搭建</h2><p>之前参照网上的教程完成了博客的搭建。现在开始第一篇的博客，心里有点小激动，毕竟第一次写博客，紧张。想了想第一篇还是记录下自己怎么搭建博客的？同时也让大家知道其实搭建博客不复杂，只要熟悉Linux命令和git命令都能搭建成功。当然网上的教程也是很多，而博主又是从零开始搭建。</p>
+<h6 id="大致流程如下"><a href="#大致流程如下" class="headerlink" title="大致流程如下:"></a>大致流程如下:</h6><ol>
+<li>环境搭建(包括Node Git)</li>
+<li>Github账号注册和配置</li>
+<li>安装配置Xexo</li>
+<li>关联Hexo 和 Github Pages</li>
+<li>Hexo 的常用操作</li>
+<li>结束语</li>
+</ol>
+<a id="more"></a>
+<h3 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h3><blockquote>
+<p>为什么要搭建环境？–因为Hexo 是一个基于Node的静态博客系统<br>Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境，可以在非浏览器环境下，解释运行 JS 代码。</p>
+</blockquote>
+<p>在 Node.js 官网：<a href="https://nodejs.org/en/" target="_blank" rel="noopener">https://nodejs.org/en/</a> 下载安装包 v6.10.3 LTS</p>
+<p>保持默认设置即可，一路Next，安装很快就完成了。</p>
+<p>然后打开命令提示符，输入 node -v、npm -v，出现版本号则说明 Node.js 环境配置成功！！！</p>
+<p><img src="http://note.youdao.com/yws/api/personal/file/D9012A097A474D03A47461A2B26CD079?method=download&amp;shareKey=c3011b9d213fea062bfcb60285d065e4" alt="image"></p>
+<p>然后配置Git环境:</p>
+<blockquote>
+<p>为什么要配置Git 环境？ 因为可以通过Git命令上传内容到GitHub上，类似大家常用的SVN.</p>
+</blockquote>
+<p>Git 是一款免费、开源的分布式版本控制系统，用于敏捷高效地处理任何或小或大的项目。</p>
+<p>在 Git 官网：<a href="https://git-scm.com/" target="_blank" rel="noopener">https://git-scm.com/</a> 下载安装包 Git-2.13.0-64-bit.exe.</p>
+<p><img src="http://note.youdao.com/yws/api/personal/file/BE8B4CE8ADA5423D9D79841A90683D97?method=download&amp;shareKey=fa0be4bf92a0dbc75ef032d484a7fe28" alt="image"></p>
+<p>然后一直默认点next即可.<br>在电脑的任何地方鼠标右键有个Git Bash 的东西点击一下弹出一个控制台输入 git –version:<br><img src="http://note.youdao.com/yws/api/personal/file/4E1DD3436896410D853F3BE6B156BB0D?method=download&amp;shareKey=a1f9e6db3644ea5c29dbe6ff38454d1d" alt="image"></p>
+<p>如果出现如图所示的就是配置成功了。那么到这里恭喜你环境就搭建好了。</p>
+<h3 id="Github账号注册和配置"><a href="#Github账号注册和配置" class="headerlink" title="Github账号注册和配置"></a>Github账号注册和配置</h3><p>GitHub 是一个代码托管平台，因为只支持 Git 作为唯一的版本库格式进行托管，故名 GitHub。</p>
+<p>Github注册：<a href="https://github.com/" target="_blank" rel="noopener">https://github.com/</a><br><img src="http://note.youdao.com/yws/api/personal/file/1C8C5BF6F0444817A07F5EE765304086?method=download&amp;shareKey=c6f90afe45b2913ee96aaac9841efbbd" alt="image"></p>
+<p>然后注册什么的就自己搞搞很简单。<br>下面说明怎么配置github 里的GitHubPages:<br>首先创建一个仓库:<br><img src="http://note.youdao.com/yws/api/personal/file/B4F0BD2337EF4FACBE4066AAAA8D5494?method=download&amp;shareKey=9368798bd8246f208c4a27e29c936e1e" alt="image"></p>
+<p>点击如图所示：然后会让你填Repository Name:<br><strong>请注意:这里的name的格式是:你的注册账户名.github.io</strong> 比如我这里的是<a href="http://EzHomeSixGod.github.io/" target="_blank" rel="noopener">EzHomeSixGod.github.io</a>,创建成功后默认是Master分支:你也可以新开一个pages分支:</p>
+<p><img src="http://note.youdao.com/yws/api/personal/file/F2C97513A9864D2A8CFEB1D19A9494F6?method=download&amp;shareKey=daffe5b74d9ff12a07ccac8c114c61d8" alt="image"></p>
+<p>点击1 可以新建分支，我这里没有新建直接在master 上面的。然后点击2 Setting配置Github Pages.</p>
+<p><img src="http://note.youdao.com/yws/api/personal/file/5000BF8334444B36B8A0337DDA58D052?method=download&amp;shareKey=61b1acc536bb5d6325a4a1b7e4e141b4" alt="image"></p>
+<p>这里这个Source会自动选择如果你是分支会是分支名。然后点击下面的Choose Theme 即可选择自己的主题。成功的话会有一个 https://你的账户名.github.io/ 就可以直接点击访问了。</p>
+<h3 id="Hexo安装"><a href="#Hexo安装" class="headerlink" title="Hexo安装"></a>Hexo安装</h3><p>Node, npm和Git都安装成功, 开始安装hexo</p>
+<blockquote>
+<p>npm install hexo -g  #-g表示全局安装, npm默认为当前项目路径安装</p>
+</blockquote>
+<p>等待一会安装完成后输入</p>
+<blockquote>
+<p>hexo –v:</p>
+</blockquote>
+<p>如果打印出hexo的版本信息那么恭喜你安装成功。</p>
+<p>安装 Hexo 完成后，请执行下列命令来初始化 Hexo，用户名改成你的，Hexo 将会在指定文件夹中新建所需要的文件。</p>
+<blockquote>
+<p>hexo init EzHomeSixGod.github.io</p>
+<p>cd EzHomeSixGod.github.io</p>
+</blockquote>
+<p>npm install<br>新建完成后，指定文件夹的目录如下：</p>
+<p>安装 Hexo 完成后，请执行下列命令来初始化 Hexo，用户名改成你的，Hexo 将会在指定文件夹中新建所需要的文件。</p>
+<blockquote>
+<p>hexo init EzHomeSixGod.github.io</p>
+<p>cd EzHomeSixGod.github.io</p>
+</blockquote>
+<p>npm install<br>新建完成后，指定文件夹的目录如下：</p>
+<p>.</p>
+<ul>
+<li>├── .deploy         #需要部署的文件</li>
+<li>├── node_modules    #Hexo插件</li>
+<li>├── public          #生成的静态网页文件</li>
+<li>├── scaffolds       #模板</li>
+<li>├── source          #博客正文和其他源文件，404、favicon、CNAME 都应该放在这里</li>
+<li>| ├── _drafts       #草稿</li>
+<li>| └── _posts        #文章</li>
+<li>├── themes          #主题</li>
+<li>├── _config.yml     #全局配置文件</li>
+<li>└── package.json    #npm 依赖等</li>
+</ul>
+<p>下面运行下本地Hexo：</p>
+<blockquote>
+<p>hexo server<br>或者<br>hexo s</p>
+</blockquote>
+<p>您的网站会在 <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> 下启动。如果 <a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a> 能够正常访问，则说明 Hexo 本地博客已经搭建起来了，只是本地哦，别人看不到的。下面，我们要部署到Github。</p>
+<p><img src="http://note.youdao.com/yws/api/personal/file/10679DD2467C423888AC62178666EC0B?method=download&amp;shareKey=2b07ac984fbd8355ee645a2d9baae572" alt="image"></p>
+<p><strong>注意</strong>：执行hexo server提示找不到该指令</p>
+<p>解决办法：在Hexo 3.0 后server被单独出来了，需要安装server，安装的命令如下：</p>
+<blockquote>
+<p>sudo npm install hexo-server<br>或者<br>npm install hexo -server –save</p>
+</blockquote>
+<h3 id="关联Hexo-和Github-pages"><a href="#关联Hexo-和Github-pages" class="headerlink" title="关联Hexo 和Github pages"></a>关联Hexo 和Github pages</h3><p>我们如何让本地git项目与远程的github建立联系呢？用 SSH keys</p>
+<p><strong>生成SSH keys</strong></p>
+<p>输入你自己的邮箱地址</p>
+<blockquote>
+<p>ssh-keygen -t rsa -C “<a href="mailto:*********@qq.com" target="_blank" rel="noopener">*********@qq.com</a>“</p>
+</blockquote>
+<p>在回车中会提示你输入一个密码，这个密码会在你提交项目时使用，如果为空的话提交项目时则不用输入，我们按回车不设置密码。</p>
+<p><strong>添加 SSH Key 到 GitHub</strong></p>
+<p>打开 C:\Users\.ssh\id_rsa.pub，此文件里面内容为刚才生成的密钥，文件名可能不一样，大家可以看控制台输出的内容，然后准确的复制这个文件的内容，粘贴到 <a href="https://github.com/settings/ssh" target="_blank" rel="noopener">https://github.com/settings/ssh</a> 的 new SSH key 中</p>
+<p><strong>测试</strong></p>
+<p>可以输入下面的命令，看看设置是否成功，<a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>的部分不要修改：</p>
+<blockquote>
+<p>ssh -T <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a></p>
+</blockquote>
+<p>如果提示:</p>
+<blockquote>
+<p>Hi aierui! You’ve successfully authenticated, but GitHub does not provide shell access.</p>
+</blockquote>
+<p>说明配置成功。</p>
+<p><strong>配置Git个人信息</strong></p>
+<p>现在你已经可以通过 SSH 链接到 GitHub 了，还有一些个人信息需要完善的。<br>Git 会根据用户的名字和邮箱来记录提交。GitHub 也是用这些信息来做权限的处理，输入下面的代码进行个人信息的设置，把名称和邮箱替换成你自己的。</p>
+<blockquote>
+<p>git config –global user.name “yourname”<br>git config –global user.email “<a href="mailto:yourqq@qq.com" target="_blank" rel="noopener">yourqq@qq.com</a>“<br>配置 Deployment</p>
+</blockquote>
+<p>在_config.yml文件中，找到Deployment，然后按照如下修改，用户名改成你的：</p>
+<p>需要注意的是：冒号后面记得空一格！</p>
+<blockquote>
+<p>Deployment<br>Docs: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">https://hexo.io/docs/deployment.html</a><br>deploy:<br>   type: git<br>  repo: <a href="mailto:git@github.com" target="_blank" rel="noopener">git@github.com</a>:yourgithubname/youtgithubname.github.io.git<br>  branch: master</p>
+</blockquote>
+<p><strong>本地文件提交到 GitHub Pages</strong></p>
+<blockquote>
+<p> 删除旧的 public 文件</p>
+<p>hexo clean</p>
+<p> 生成新的 public 文件</p>
+<p>hexo generate<br>或者<br>hexo g</p>
+<p> 开始部署<br>hexo deploye<br>或者<br>hexo d</p>
+<p>在浏览器中输入 <a href="https://yourgithubname.github.io" target="_blank" rel="noopener">https://yourgithubname.github.io</a> （用户名改成你的）看到了 Hexo 与 GitHub Pages 已经成功关联了</p>
+</blockquote>
+<p><strong>注意</strong>：若上面操作失败，则需要提前安装一个扩展：</p>
+<blockquote>
+<p>npm install hexo-deployer-git –save<br>注意2：如果在执行 hexo d 后,出现 error deployer not found:github 的错误（如下），则是因为没有设置好 public key 所致，重新详细设置即可。</p>
+</blockquote>
+<blockquote>
+<p>Permission denied (publickey).<br>fatal: Could not read from remote repository.<br>Please make sure you have the correct access rights<br>and the repository exists.</p>
+</blockquote>
+<p>在执行hexo deploy前把在本地写好的README.md文件复制到.deploy文件夹中，再去执行hexo deploy。</p>
+<h2 id="Hexo-常用操作"><a href="#Hexo-常用操作" class="headerlink" title="Hexo 常用操作"></a>Hexo 常用操作</h2><p>这个大家可以参考官方文档还是很详细的。<a href="https://hexo.io/" target="_blank" rel="noopener">https://hexo.io/</a></p>
+<blockquote>
+<p>发表一篇文章</p>
+<p>hexo new “文章标题”<br>在本地博客文件夹 source_posts 文件夹下看到我们新建的 markdown 文件。</p>
+<p>当然，我们也可以手动添加Markdown文件在source-&gt;_deploy文件夹下，其效果同样可以媲美hexo new</p>
+<p>文章编辑好之后，运行生成、部署命令：</p>
+<p>hexo clean</p>
+<p>hexo g</p>
+</blockquote>
+<blockquote>
+<p>hexo d<br>当然你也可以执行下面的命令，相当于上面两条命令的效果</p>
+<p>hexo clean</p>
+<p>hexo d -g</p>
+</blockquote>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="结束语"></a>结束语</h2><p>其他的配置大家可以参考官方文档，包括主题，样式，标签，还有很多其他的特效。</p>
+
+      
+    </div>
+    
+    
+    
+ 
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------���Ľ���<i class="fa fa-paw"></i>��л�����Ķ�-------------</div>
+    
+</div>
+      </div>
+    
+<div>
+      
+        
+      
+</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hexo-Git-Npm-Node/" rel="tag"><i class="fa fa-tag"></i> Hexo Git Npm Node</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/10/Netty-实战笔记之传输/" rel="next" title="Netty 实战笔记之传输">
+                <i class="fa fa-chevron-left"></i> Netty 实战笔记之传输
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/th.jpg"
+                alt="EzHomeSixGod" />
+            
+              <p class="site-author-name" itemprop="name">EzHomeSixGod</p>
+              <p class="site-description motion-element" itemprop="description">理想公式：try {t = "love";return t;} catch (Exception e) {t = "money";return t;} finally {t = "money and love";return t;}</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.github.com/EzHomeSixGod" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/c3a3fa14c147" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-globe"></i>简书</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo-gitHubPage-git博客搭建"><span class="nav-number">1.</span> <span class="nav-text">Hexo + gitHubPage +git博客搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#大致流程如下"><span class="nav-number">1.0.0.0.1.</span> <span class="nav-text">大致流程如下:</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境搭建"><span class="nav-number">1.1.</span> <span class="nav-text">环境搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Github账号注册和配置"><span class="nav-number">1.2.</span> <span class="nav-text">Github账号注册和配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo安装"><span class="nav-number">1.3.</span> <span class="nav-text">Hexo安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关联Hexo-和Github-pages"><span class="nav-number">1.4.</span> <span class="nav-text">关联Hexo 和Github pages</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo-常用操作"><span class="nav-number">2.</span> <span class="nav-text">Hexo 常用操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结束语"><span class="nav-number">3.</span> <span class="nav-text">结束语</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">EzHomeSixGod</span>
+
+  
+</div>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+</body>
+</html>
