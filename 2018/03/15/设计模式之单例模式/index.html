@@ -100,18 +100,18 @@
 
 
 
-<meta name="description" content="设计模式之单例模式本篇是设计模式系列的第一篇，之前有一篇设计模式总览到。这一篇主要讲单例模式，尽量用博主最通俗易懂的方式讲，如果有不对的地方还请各位大神指导。 单例模式，是设计模式中最简单的一种。  首先来回顾一下单例模式为何要出现，又或者说什么样的类可以做成单例的。  在我的工作过程中，我发现所有可以使用单例模式的类都有一个共性，那就是这个类没有自己的状态，或者说，这些类无论你实例化多少个，其实">
+<meta name="description" content="设计模式之单例模式本篇是设计模式系列的第一篇，之前有一篇设计模式总览到。这一篇主要讲单例模式，尽量用博主最通俗易懂的方式讲，如果有不对的地方还请各位大神指导。 单例模式，是设计模式中最简单的一种。">
 <meta name="keywords" content="单例模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式之单例模式">
 <meta property="og:url" content="http://yoursite.com/2018/03/15/设计模式之单例模式/index.html">
 <meta property="og:site_name" content="EzHomeSixGod">
-<meta property="og:description" content="设计模式之单例模式本篇是设计模式系列的第一篇，之前有一篇设计模式总览到。这一篇主要讲单例模式，尽量用博主最通俗易懂的方式讲，如果有不对的地方还请各位大神指导。 单例模式，是设计模式中最简单的一种。  首先来回顾一下单例模式为何要出现，又或者说什么样的类可以做成单例的。  在我的工作过程中，我发现所有可以使用单例模式的类都有一个共性，那就是这个类没有自己的状态，或者说，这些类无论你实例化多少个，其实">
+<meta property="og:description" content="设计模式之单例模式本篇是设计模式系列的第一篇，之前有一篇设计模式总览到。这一篇主要讲单例模式，尽量用博主最通俗易懂的方式讲，如果有不对的地方还请各位大神指导。 单例模式，是设计模式中最简单的一种。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-15T13:22:26.525Z">
+<meta property="og:updated_time" content="2018-03-15T13:25:20.422Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式之单例模式">
-<meta name="twitter:description" content="设计模式之单例模式本篇是设计模式系列的第一篇，之前有一篇设计模式总览到。这一篇主要讲单例模式，尽量用博主最通俗易懂的方式讲，如果有不对的地方还请各位大神指导。 单例模式，是设计模式中最简单的一种。  首先来回顾一下单例模式为何要出现，又或者说什么样的类可以做成单例的。  在我的工作过程中，我发现所有可以使用单例模式的类都有一个共性，那就是这个类没有自己的状态，或者说，这些类无论你实例化多少个，其实">
+<meta name="twitter:description" content="设计模式之单例模式本篇是设计模式系列的第一篇，之前有一篇设计模式总览到。这一篇主要讲单例模式，尽量用博主最通俗易懂的方式讲，如果有不对的地方还请各位大神指导。 单例模式，是设计模式中最简单的一种。">
 
 
 
@@ -349,6 +349,17 @@
 
           
             
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/03/15/设计模式之单例模式/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/03/15/设计模式之单例模式/" itemprop="commentsCount"></span>
+                </a>
+              
+            
           
 
           
@@ -375,6 +386,7 @@
       
         <h1 id="设计模式之单例模式"><a href="#设计模式之单例模式" class="headerlink" title="设计模式之单例模式"></a>设计模式之单例模式</h1><p>本篇是设计模式系列的第一篇，之前有一篇<a href="https://ezhomesixgod.github.io/2018/03/15/设计模式总览/#more" target="_blank" rel="noopener">设计模式总览到</a>。这一篇主要讲单例模式，尽量用博主最通俗易懂的方式讲，如果有不对的地方还请各位大神指导。</p>
 <p><strong>单例模式，是设计模式中最简单的一种。</strong> </p>
+<a id="more"></a>
 <p>首先来回顾一下单例模式为何要出现，又或者说什么样的类可以做成单例的。  在我的工作过程中，我发现所有可以使用单例模式的类都有一个共性，<strong>那就是这个类没有自己的状态</strong>，或者说，这些类无论你实例化多少个，其实都是一样的，而且更重要的一点是，这个类如果有两个或者两个以上的实例的话，我的程序竟然会产生程序错误或者与现实相违背的逻辑错误。</p>
 <p>这样的话，如果我们不将这个类控制成单例的结构，应用中就会存在很多个一模一样的类实例，这会非常浪费系统的内存资源，而且容易导致错误甚至一定会产生错误，所以我们单例模式所期待的目标或者说使用它的目的，是为了尽可能的节约内存空间，减少无谓的GC消耗，并且使应用可以正常运作。</p>
 <p>稍微总结一下，一般一个类能否做成单例，最容易区别的地方就在于：<strong>这些类，在应用中如果有两个或者两个以上的实例会引起错误，又或者换句话说，就是这些类，在整个应用中，同一时刻，有且只能有一种状态。</strong></p>
@@ -544,6 +556,11 @@ var jiathis_config={
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
 
   
 
@@ -864,6 +881,21 @@ var jiathis_config={
 
 
 
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytjh1FSk';
+      var conf = '9d90ac5cdbc9a69156370728bd9452eb';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
 
 
 
