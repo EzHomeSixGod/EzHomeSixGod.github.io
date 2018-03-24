@@ -100,18 +100,18 @@
 
 
 
-<meta name="description" content="设计模式之代理模式本篇是设计模式系列的第二篇，之前的文章单例模式;这一篇文章，博主主要学习下代理模式。 首先我们都知道代理也分为静态代理和动态代理。虽然现在像spring这样成熟的框架会有自己的实现方式，开箱即用，我们不用自己实现代理，但是对于深入了解学习还是很有必要的。不管是静态代理还是动态代理，两种代理从虚拟机加载类的角度来讲，本质上都是一样的，都是在原有类的行为基础上，加入一些多出的行为，甚">
+<meta name="description" content="设计模式之代理模式本篇是设计模式系列的第二篇，上一篇单例模式见这里; 首先我们都知道代理也分为静态代理和动态代理。虽然现在像spring这样成熟的框架会有自己的实现方式，开箱即用，我们不用自己实现代理，但是对于深入了解学习还是很有必要的。不管是静态代理还是动态代理，两种代理从虚拟机加载类的角度来讲，本质上都是一样的，都是在原有类的行为基础上，加入一些多出的行为，甚至完全替换原有的行为。">
 <meta name="keywords" content="代理模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="设计模式之代理模式">
 <meta property="og:url" content="http://yoursite.com/2018/03/18/设计模式之代理模式/index.html">
 <meta property="og:site_name" content="EzHomeSixGod">
-<meta property="og:description" content="设计模式之代理模式本篇是设计模式系列的第二篇，之前的文章单例模式;这一篇文章，博主主要学习下代理模式。 首先我们都知道代理也分为静态代理和动态代理。虽然现在像spring这样成熟的框架会有自己的实现方式，开箱即用，我们不用自己实现代理，但是对于深入了解学习还是很有必要的。不管是静态代理还是动态代理，两种代理从虚拟机加载类的角度来讲，本质上都是一样的，都是在原有类的行为基础上，加入一些多出的行为，甚">
+<meta property="og:description" content="设计模式之代理模式本篇是设计模式系列的第二篇，上一篇单例模式见这里; 首先我们都知道代理也分为静态代理和动态代理。虽然现在像spring这样成熟的框架会有自己的实现方式，开箱即用，我们不用自己实现代理，但是对于深入了解学习还是很有必要的。不管是静态代理还是动态代理，两种代理从虚拟机加载类的角度来讲，本质上都是一样的，都是在原有类的行为基础上，加入一些多出的行为，甚至完全替换原有的行为。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-18T10:14:26.627Z">
+<meta property="og:updated_time" content="2018-03-18T10:18:02.014Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="设计模式之代理模式">
-<meta name="twitter:description" content="设计模式之代理模式本篇是设计模式系列的第二篇，之前的文章单例模式;这一篇文章，博主主要学习下代理模式。 首先我们都知道代理也分为静态代理和动态代理。虽然现在像spring这样成熟的框架会有自己的实现方式，开箱即用，我们不用自己实现代理，但是对于深入了解学习还是很有必要的。不管是静态代理还是动态代理，两种代理从虚拟机加载类的角度来讲，本质上都是一样的，都是在原有类的行为基础上，加入一些多出的行为，甚">
+<meta name="twitter:description" content="设计模式之代理模式本篇是设计模式系列的第二篇，上一篇单例模式见这里; 首先我们都知道代理也分为静态代理和动态代理。虽然现在像spring这样成熟的框架会有自己的实现方式，开箱即用，我们不用自己实现代理，但是对于深入了解学习还是很有必要的。不管是静态代理还是动态代理，两种代理从虚拟机加载类的角度来讲，本质上都是一样的，都是在原有类的行为基础上，加入一些多出的行为，甚至完全替换原有的行为。">
 
 
 
@@ -362,7 +362,7 @@
       
 
       
-        <h1 id="设计模式之代理模式"><a href="#设计模式之代理模式" class="headerlink" title="设计模式之代理模式"></a>设计模式之代理模式</h1><p>本篇是设计模式系列的第二篇，之前的文章单例模式;这一篇文章，博主主要学习下代理模式。</p>
+        <h1 id="设计模式之代理模式"><a href="#设计模式之代理模式" class="headerlink" title="设计模式之代理模式"></a>设计模式之代理模式</h1><p>本篇是设计模式系列的第二篇，上一篇<a href="https://ezhomesixgod.github.io/2018/03/15/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/#more" target="_blank" rel="noopener">单例模式</a>见这里;</p>
 <p>首先我们都知道代理也分为<strong>静态代理</strong>和<strong>动态代理</strong>。虽然现在像spring这样成熟的框架会有自己的实现方式，开箱即用，我们不用自己实现代理，但是对于深入了解学习还是很有必要的。不管是静态代理还是动态代理，两种代理从虚拟机加载类的角度来讲，本质上都是一样的，<strong>都是在原有类的行为基础上，加入一些多出的行为，甚至完全替换原有的行为。</strong></p>
 <a id="more"></a>
 <h2 id="一-静态代理"><a href="#一-静态代理" class="headerlink" title="一 静态代理"></a>一 静态代理</h2><p>静态代理采用的方式就是我们手动的将这些行为换进去，然后让编译器帮我们编译，同时也就将字节码在原有类的基础上加入一些其他的东西或者替换原有的东西，产生一个新的与原有类接口相同但是行为却不同的类型。</p>
@@ -585,7 +585,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
