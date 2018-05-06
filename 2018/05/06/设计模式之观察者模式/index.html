@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*��������ɫ*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*��Ӱ��ɫ*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*�ϱ߿���ɫ*/
+        border-left-color: #1E92FB;    /*��߿���ɫ*/
+    }
+</style>
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="设计模式," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="设计模式之观察者模式本篇是设计模式系列博客的第四篇，本篇主要学习设计模式中的第二个行为型模式—观察者模式。  什么是观察者模式？ 模式的结构？ 模式自定义实现和JDK自带实现？ 推模型和拉模型？ JDK源码分析？">
+<meta name="keywords" content="设计模式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式之观察者模式">
+<meta property="og:url" content="http://yoursite.com/2018/05/06/设计模式之观察者模式/index.html">
+<meta property="og:site_name" content="EzHomeSixGod">
+<meta property="og:description" content="设计模式之观察者模式本篇是设计模式系列博客的第四篇，本篇主要学习设计模式中的第二个行为型模式—观察者模式。  什么是观察者模式？ 模式的结构？ 模式自定义实现和JDK自带实现？ 推模型和拉模型？ JDK源码分析？">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://note.youdao.com/yws/api/personal/file/05B15198A29F47E7BAA07857357CE778?method=download&shareKey=7d8e7e593e1c2c66ac0dc1342528e693">
+<meta property="og:updated_time" content="2018-05-06T03:20:11.168Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="设计模式之观察者模式">
+<meta name="twitter:description" content="设计模式之观察者模式本篇是设计模式系列博客的第四篇，本篇主要学习设计模式中的第二个行为型模式—观察者模式。  什么是观察者模式？ 模式的结构？ 模式自定义实现和JDK自带实现？ 推模型和拉模型？ JDK源码分析？">
+<meta name="twitter:image" content="https://note.youdao.com/yws/api/personal/file/05B15198A29F47E7BAA07857357CE778?method=download&shareKey=7d8e7e593e1c2c66ac0dc1342528e693">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/06/设计模式之观察者模式/"/>
+
+
+
+
+
+  <title>设计模式之观察者模式 | EzHomeSixGod</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/EzHomeSixGod"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">EzHomeSixGod</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/06/设计模式之观察者模式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="EzHomeSixGod">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/th.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EzHomeSixGod">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">设计模式之观察者模式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T11:18:47+08:00">
+                2018-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/05/06/设计模式之观察者模式/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/05/06/设计模式之观察者模式/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="设计模式之观察者模式"><a href="#设计模式之观察者模式" class="headerlink" title="设计模式之观察者模式"></a>设计模式之观察者模式</h1><p>本篇是设计模式系列博客的第四篇，本篇主要学习设计模式中的第二个行为型模式—观察者模式。</p>
+<ol>
+<li>什么是观察者模式？</li>
+<li>模式的结构？</li>
+<li>模式自定义实现和JDK自带实现？</li>
+<li>推模型和拉模型？</li>
+<li>JDK源码分析？</li>
+</ol>
+<a id="more"></a>
+<h2 id="1-什么是观察者模式？"><a href="#1-什么是观察者模式？" class="headerlink" title="1 什么是观察者模式？"></a>1 什么是观察者模式？</h2><p>引用百度百科中的解释：</p>
+<blockquote>
+<p>观察者模式（有时又被称为模型-视图（View）模式、源-收听者(Listener)模式或从属者模式）是软件设计模式的一种。在此种模式中，一个目标物件管理所有相依于它的观察者物件，并且在它本身的状态改变时主动发出通知。这通常透过呼叫各观察者所提供的方法来实现。此种模式通常被用来实现事件处理系统。</p>
+</blockquote>
+<p><strong>简单点概括成通俗的话来说，就是一个类管理着所有依赖于它的观察者类，并且在它状态变化时会主动给这些依赖它的类发出通知。当然后面我们也可以看到除了主动推消息外也可以拉消息。</strong> </p>
+<h2 id="2-模式的结构"><a href="#2-模式的结构" class="headerlink" title="2 模式的结构"></a>2 模式的结构</h2><p>把它用图表示如下:</p>
+<p><img src="https://note.youdao.com/yws/api/personal/file/05B15198A29F47E7BAA07857357CE778?method=download&amp;shareKey=7d8e7e593e1c2c66ac0dc1342528e693" alt="image"></p>
+<p>可以看到，我们的被观察者类Observable只关联了一个Observer的列表，然后在自己状态变化时，使用notifyObservers方法通知这些Observer，具体这些Observer都是什么，被观察者是不关心也不需要知道的。</p>
+<p>上面就将观察者和被观察者二者的耦合度降到很低了，而我们具体的观察者是必须要知道自己观察的是谁，所以它依赖于被观察者。</p>
+<h2 id="3-模式实现"><a href="#3-模式实现" class="headerlink" title="3 模式实现"></a>3 模式实现</h2><h3 id="3-1-自定义观察者模式"><a href="#3-1-自定义观察者模式" class="headerlink" title="3.1 自定义观察者模式"></a>3.1 自定义观察者模式</h3><p>下面LZ给写出一个很简单的观察者模式-拉模型，来使用JAVA代码简单诠释一下上面的类图。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//这个接口是为了提供一个统一的观察者做出相应行为的方法</span><br><span class="line">public interface Observer &#123;</span><br><span class="line"></span><br><span class="line">    void update(Observable o);</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体的观察者1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class ConcreteObserver1 implements Observer&#123;</span><br><span class="line"></span><br><span class="line">    public void update(Observable o) &#123;</span><br><span class="line">        System.out.println(&quot;观察者1观察到&quot; + o.getClass().getSimpleName() + &quot;发生变化&quot;);</span><br><span class="line">        System.out.println(&quot;观察者1执行pull拉取动作&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体的观察者2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public class ConcreteObserver2 implements Observer&#123;</span><br><span class="line"></span><br><span class="line">    public void update(Observable o) &#123;</span><br><span class="line">        System.out.println(&quot;观察者2观察到&quot; + o.getClass().getSimpleName() + &quot;发生变化&quot;);</span><br><span class="line">        System.out.println(&quot;观察者2执行pull拉取动作&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面是被观察者，它有一个观察者的列表，并且有一个通知所有观察者的方法，通知的方式就是调用观察者通用的接口行为update方法。下面我们看它的代码。</p>
+<p>public class Observable {</p>
+<pre><code>List&lt;Observer&gt; observers = new ArrayList&lt;Observer&gt;();
+
+public void addObserver(Observer o){
+    observers.add(o);
+}
+
+public void changed(){
+    System.out.println(&quot;我是被观察者，我已经发生变化了&quot;);
+    notifyObservers();//通知观察自己的所有观察者
+}
+
+public void notifyObservers(){
+    for (Observer observer : observers) {
+        observer.update(this);
+    }
+}
+</code></pre><p>}</p>
+<p>这里面很简单，新增两个方法，一个是为了改变自己的同时通知观察者们，一个是为了给客户端一个添加观察者的公共接口。<br>下面我们使用客户端调用一下，看一下客户端如何操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class Client &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        Observable observable = new Observable();</span><br><span class="line">        observable.addObserver(new ConcreteObserver1());</span><br><span class="line">        observable.addObserver(new ConcreteObserver2());</span><br><span class="line">        </span><br><span class="line">        observable.changed();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">我是观察者,我已经发生了变化</span><br><span class="line">观察者1观察到Obserable发生了变化</span><br><span class="line">观察者1执行动作</span><br><span class="line">观察者2观察到Obserable发生了变化</span><br><span class="line">观察者2执行动作</span><br></pre></td></tr></table></figure></p>
+<h3 id="3-2-JDK自带的观察者模式"><a href="#3-2-JDK自带的观察者模式" class="headerlink" title="3.2 JDK自带的观察者模式"></a>3.2 JDK自带的观察者模式</h3><p>JDK提供了一个Observable(被观察者)抽象类，和一个Observer(观察者)接口。继承前者就可以被当做一个Subject主题，实现后面接口就可以成为Subject的一个观察者。主题需要显示调用setChanged来告诉Observable,我们状态改变需要通知给观察者，也提供了update的重载方法，可以实现推拉两种模式。观察者只需要实现update方法就可以获取被观察者的状态。</p>
+<h2 id="4-推模型和拉模型？"><a href="#4-推模型和拉模型？" class="headerlink" title="4 推模型和拉模型？"></a>4 推模型和拉模型？</h2><h3 id="4-1-推模型"><a href="#4-1-推模型" class="headerlink" title="4.1 推模型"></a>4.1 推模型</h3><p>主题对象向观察者推送主题的详细信息，不管观察者是否需要，推送的信息通常是主题对象的全部或部分数据。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//这个接口是为了提供一个统一的观察者做出相应行为的方法</span><br><span class="line">public interface Observer &#123;</span><br><span class="line"></span><br><span class="line">    void update();</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>具体的观察者：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class ConcreteObserver2 implements Observer&#123;</span><br><span class="line"></span><br><span class="line">    private Observable observable;</span><br><span class="line">    </span><br><span class="line">    public void setObservable(Observable observable)&#123;</span><br><span class="line">        this.observable =observable;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Observable getObservable()&#123;</span><br><span class="line">        return observable;</span><br><span class="line">    &#125;</span><br><span class="line">    public void update() &#123;</span><br><span class="line">        </span><br><span class="line">        System.out.println(&quot;观察者观察到&quot; + observable.getState + &quot;发生变化&quot;);</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面是被观察者，它有一个观察者的列表，并且有一个通知所有观察者的方法，通知的方式就是调用观察者通用的接口行为update方法。下面我们看它的代码。</p>
+<p>public class Observable {</p>
+<pre><code>private String state;
+public void setState(String state){
+    system.out.pritln(&quot;被观察者改变了状态&quot;+state);
+    this.state =state;
+}
+
+public String getState(){
+    return state;
+}
+
+
+List&lt;Observer&gt; observers = new ArrayList&lt;Observer&gt;();
+
+public void addObserver(Observer o){
+    observers.add(o);
+}
+
+
+public void notifyObservers(){
+    for (Observer observer : observers) {
+        observer.update();
+    }
+}
+</code></pre><p>}</p>
+<p>这里面很简单，新增两个方法，一个是为了改变自己的同时通知观察者们，一个是为了给客户端一个添加观察者的公共接口。<br>下面我们使用客户端调用一下，看一下客户端如何操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class Client &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        Observable observable = new Observable();</span><br><span class="line">        observable.addObserver(new ConcreteObserver1());</span><br><span class="line">        observable.addObserver(new ConcreteObserver2());</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        //被观察者改变状态</span><br><span class="line">        observable.setState(&quot;change state&quot;);</span><br><span class="line">        </span><br><span class="line">        //被观察者推送</span><br><span class="line">        observable.update();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">被观察者改变了状态change state</span><br><span class="line">  </span><br><span class="line">观察者观察到change state发生了变化</span><br></pre></td></tr></table></figure></p>
+<h3 id="4-2-拉模型"><a href="#4-2-拉模型" class="headerlink" title="4.2 拉模型"></a>4.2 拉模型</h3><p>主题对象在通知观察者的时候，只传递少量信息。如果观察者需要更具体的信息，由观察者主动到主题对象中获取，相当于是观察者从主题对象中拉数据。一般这种模型的实现中，会把主题对象自身通过update()方法传递给观察者，这样在观察者需要获取数据的时候，就可以通过这个引用来获取了。</p>
+<p>这种模式在文章的前面已经给出栗子了。</p>
+<h2 id="5-JDK源码分析"><a href="#5-JDK源码分析" class="headerlink" title="5. JDK源码分析"></a>5. JDK源码分析</h2><p>其实源码思想跟我们前面自己实现的差别不大只是做了一个封装。先看主题抽象类。代码如下(代码不多我全部贴上,写上必要的注释)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line">public class Observable &#123;</span><br><span class="line">    //通过这个属性来觉得状态是否改变。</span><br><span class="line">    private boolean changed = false;</span><br><span class="line">    //用一个线程安全的集合列表来保存所有的观察者。这里并没有用到具体的观察者对象而是用的接口，体现了面向接口编程的思想。</span><br><span class="line">    private Vector&lt;Observer&gt; obs;</span><br><span class="line">    public Observable() &#123;</span><br><span class="line">        obs = new Vector&lt;&gt;();</span><br><span class="line">    &#125;</span><br><span class="line">    //同步添加观察者,同时添加的时候还去重了。</span><br><span class="line">    public synchronized void addObserver(Observer o) &#123;</span><br><span class="line">        if (o == null)</span><br><span class="line">            throw new NullPointerException();</span><br><span class="line">        if (!obs.contains(o)) &#123;</span><br><span class="line">            obs.addElement(o);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    //取消关注</span><br><span class="line">    public synchronized void deleteObserver(Observer o) &#123;</span><br><span class="line">        obs.removeElement(o);</span><br><span class="line">    &#125;</span><br><span class="line">    //通知观察者</span><br><span class="line">    public void notifyObservers() &#123;</span><br><span class="line">        notifyObservers(null);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    //传一个对象过去，具体需要什么数据由观察者自己调用，也可以看出这个模式的一个缺点必须是观察要知道有哪个主题？</span><br><span class="line">    public void notifyObservers(Object arg) &#123;</span><br><span class="line">      </span><br><span class="line">        Object[] arrLocal;</span><br><span class="line"></span><br><span class="line">        synchronized (this) &#123;</span><br><span class="line">            if (!changed)</span><br><span class="line">                return;</span><br><span class="line">            arrLocal = obs.toArray();</span><br><span class="line">            clearChanged();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        //循环通知所有的观察者对象</span><br><span class="line">        for (int i = arrLocal.length-1; i&gt;=0; i--)</span><br><span class="line">            ((Observer)arrLocal[i]).update(this, arg);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public synchronized void deleteObservers() &#123;</span><br><span class="line">        obs.removeAllElements();</span><br><span class="line">    &#125;</span><br><span class="line">    //改变当前主题的状态</span><br><span class="line">    protected synchronized void setChanged() &#123;</span><br><span class="line">        changed = true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected synchronized void clearChanged() &#123;</span><br><span class="line">        changed = false;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public synchronized boolean hasChanged() &#123;</span><br><span class="line">        return changed;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public synchronized int countObservers() &#123;</span><br><span class="line">        return obs.size();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在是观察者接口：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public interface Observer &#123;</span><br><span class="line">    //就这么一个方法</span><br><span class="line">    void update(Observable o, Object arg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="6-总结"><a href="#6-总结" class="headerlink" title="6 总结"></a>6 总结</h2><p> 观察者模式所欠缺的是设计上的问题，即观察者和被观察者是多对一的关系，那么反过来的话，就无法支持了。</p>
+<p>观察者模式还有一个缺点就是，每一个观察者都要实现观察者接口，才能添加到被观察者的列表当中，假设一个观察者已经存在，而且我们无法改变其代码，那么就无法让它成为一个观察者了，不过这个我们依然可以使用适配器模式解决。但是还有一个问题就不好解决了，就是假如我们很多类都是现成的，当被观察者发生变化时，每一个观察者都需要调用不同的方法，那么观察者模式就有点捉襟见肘的感觉了，我们必须适配每一个类去统一他们变化的方法名称为update，这是一个很可怕的事情。</p>
+
+      
+    </div>
+    
+    
+    
+ 
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------���Ľ���<i class="fa fa-paw"></i>��л�����Ķ�-------------</div>
+    
+</div>
+      </div>
+    
+<div>
+      
+        
+      
+</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/设计模式/" rel="tag"><i class="fa fa-tag"></i> 设计模式</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/06/设计模式之策略模式/" rel="next" title="设计模式之策略模式">
+                <i class="fa fa-chevron-left"></i> 设计模式之策略模式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/06/设计模式之装饰器模式/" rel="prev" title="设计模式之装饰器模式">
+                设计模式之装饰器模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/th.jpg"
+                alt="EzHomeSixGod" />
+            
+              <p class="site-author-name" itemprop="name">EzHomeSixGod</p>
+              <p class="site-description motion-element" itemprop="description">理想公式：try {t = "love";return t;} catch (Exception e) {t = "money";return t;} finally {t = "money and love";return t;}</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.github.com/EzHomeSixGod" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/c3a3fa14c147" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-globe"></i>简书</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#设计模式之观察者模式"><span class="nav-number">1.</span> <span class="nav-text">设计模式之观察者模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-什么是观察者模式？"><span class="nav-number">1.1.</span> <span class="nav-text">1 什么是观察者模式？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-模式的结构"><span class="nav-number">1.2.</span> <span class="nav-text">2 模式的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-模式实现"><span class="nav-number">1.3.</span> <span class="nav-text">3 模式实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-自定义观察者模式"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 自定义观察者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-JDK自带的观察者模式"><span class="nav-number">1.3.2.</span> <span class="nav-text">3.2 JDK自带的观察者模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-推模型和拉模型？"><span class="nav-number">1.4.</span> <span class="nav-text">4 推模型和拉模型？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-推模型"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1 推模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-拉模型"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2 拉模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-JDK源码分析"><span class="nav-number">1.5.</span> <span class="nav-text">5. JDK源码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-总结"><span class="nav-number">1.6.</span> <span class="nav-text">6 总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">EzHomeSixGod</span>
+
+  
+</div>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytjh1FSk';
+      var conf = '9d90ac5cdbc9a69156370728bd9452eb';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+</body>
+</html>

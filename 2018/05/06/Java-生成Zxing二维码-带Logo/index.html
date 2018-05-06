@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*��������ɫ*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*��Ӱ��ɫ*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*�ϱ߿���ɫ*/
+        border-left-color: #1E92FB;    /*��߿���ɫ*/
+    }
+</style>
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java Tool," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="java 利用Zxing 生成二维码(带Logo) Zxing是Google提供的关于条码（一维码、二维码）的解析工具，提供了二维码的生成与解析的方法，现在我简单介绍一下使用Java利用Zxing生成与解析二维码">
+<meta name="keywords" content="Java Tool">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 生成Zxing二维码(带Logo)">
+<meta property="og:url" content="http://yoursite.com/2018/05/06/Java-生成Zxing二维码-带Logo/index.html">
+<meta property="og:site_name" content="EzHomeSixGod">
+<meta property="og:description" content="java 利用Zxing 生成二维码(带Logo) Zxing是Google提供的关于条码（一维码、二维码）的解析工具，提供了二维码的生成与解析的方法，现在我简单介绍一下使用Java利用Zxing生成与解析二维码">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-06T03:17:42.665Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 生成Zxing二维码(带Logo)">
+<meta name="twitter:description" content="java 利用Zxing 生成二维码(带Logo) Zxing是Google提供的关于条码（一维码、二维码）的解析工具，提供了二维码的生成与解析的方法，现在我简单介绍一下使用Java利用Zxing生成与解析二维码">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/06/Java-生成Zxing二维码-带Logo/"/>
+
+
+
+
+
+  <title>Java 生成Zxing二维码(带Logo) | EzHomeSixGod</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+<a href="https://github.com/EzHomeSixGod"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">EzHomeSixGod</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/06/Java-生成Zxing二维码-带Logo/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="EzHomeSixGod">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/th.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="EzHomeSixGod">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java 生成Zxing二维码(带Logo)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T11:11:48+08:00">
+                2018-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/05/06/Java-生成Zxing二维码-带Logo/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/05/06/Java-生成Zxing二维码-带Logo/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="java-利用Zxing-生成二维码-带Logo"><a href="#java-利用Zxing-生成二维码-带Logo" class="headerlink" title="java 利用Zxing 生成二维码(带Logo)"></a>java 利用Zxing 生成二维码(带Logo)</h1><blockquote>
+<p>Zxing是Google提供的关于条码（一维码、二维码）的解析工具，提供了二维码的生成与解析的方法，现在我简单介绍一下使用Java利用Zxing生成与解析二维码</p>
+</blockquote>
+<a id="more"></a>
+<p><strong>1、二维码生成</strong></p>
+<ol>
+<li>准备一张生成logo的图片地址:D:\Documents\Pictures\lovewallpaper\test.jpg</li>
+<li>需要保存二维码的地址:d:\logo.jpg</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">public class EncodeTest &#123;	</span><br><span class="line">	</span><br><span class="line">	public static BufferedImage Encode_QR_CODE(String contents,BufferedImage logo) throws IOException, WriterException&#123;</span><br><span class="line">		int width = 342; // 二维码图片宽度</span><br><span class="line">		int height = 342; // 二维码图片高度</span><br><span class="line">		</span><br><span class="line">		//String format = &quot;gif&quot;;// 二维码的图片格式 gif</span><br><span class="line">		</span><br><span class="line">		Hashtable&lt;EncodeHintType, Object&gt; hints = new Hashtable&lt;EncodeHintType, Object&gt;();</span><br><span class="line">		 // 指定纠错等级,纠错级别（L 7%、M 15%、Q 25%、H 30%）</span><br><span class="line">		hints.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);</span><br><span class="line">		// 内容所使用字符集编码</span><br><span class="line">		hints.put(EncodeHintType.CHARACTER_SET, &quot;utf-8&quot;);	</span><br><span class="line">		hints.put(EncodeHintType.MAX_SIZE, 400);//设置图片的最大值</span><br><span class="line">	    hints.put(EncodeHintType.MIN_SIZE, 100);//设置图片的最小值</span><br><span class="line">		hints.put(EncodeHintType.MARGIN, 4);//设置二维码边的空度，非负数</span><br><span class="line">		</span><br><span class="line">		BitMatrix bitMatrix = new MultiFormatWriter().encode(contents,//要编码的内容</span><br><span class="line">				//编码类型，目前zxing支持：Aztec 2D,CODABAR 1D format,Code 39 1D,Code 93 1D ,Code 128 1D,</span><br><span class="line">				//Data Matrix 2D , EAN-8 1D,EAN-13 1D,ITF (Interleaved Two of Five) 1D,</span><br><span class="line">				//MaxiCode 2D barcode,PDF417,QR Code 2D,RSS 14,RSS EXPANDED,UPC-A 1D,UPC-E 1D,UPC/EAN extension,UPC_EAN_EXTENSION</span><br><span class="line">				BarcodeFormat.QR_CODE,</span><br><span class="line">				width, //条形码的宽度</span><br><span class="line">				height, //条形码的高度</span><br><span class="line">				hints);//生成条形码时的一些配置,此项可选	</span><br><span class="line">		if(null == logo)&#123;</span><br><span class="line">			return MatrixToImageWriter.toBufferedImage(bitMatrix);</span><br><span class="line">		&#125;				</span><br><span class="line">		</span><br><span class="line">		return LogoConfig.LogoMatrix(MatrixToImageWriter.toBufferedImage(bitMatrix),logo);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>看看LogoConfig类：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">public class LogoConfig &#123;</span><br><span class="line">	</span><br><span class="line">	/**</span><br><span class="line">	 * 设置 logo </span><br><span class="line">	 * @param matrixImage 源二维码图片</span><br><span class="line">	 * @return 返回带有logo的二维码图片</span><br><span class="line">	 * @throws IOException</span><br><span class="line">	 * @author Administrator sangwenhao</span><br><span class="line">	 */</span><br><span class="line">     public static BufferedImage LogoMatrix(BufferedImage matrixImage,BufferedImage logo) throws IOException&#123;</span><br><span class="line">    	 /**</span><br><span class="line">          * 读取二维码图片，并构建绘图对象</span><br><span class="line">          */</span><br><span class="line">         Graphics2D g2 = matrixImage.createGraphics();</span><br><span class="line">    	 </span><br><span class="line">    	 int matrixWidth = matrixImage.getWidth();</span><br><span class="line">    	 int matrixHeigh = matrixImage.getHeight();</span><br><span class="line"></span><br><span class="line">         //开始绘制图片</span><br><span class="line">         g2.drawImage(logo,matrixWidth/5*2,matrixHeigh/5*2, matrixWidth/5, matrixHeigh/5, null);//绘制     </span><br><span class="line">         BasicStroke stroke = new BasicStroke(5,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND); </span><br><span class="line">         g2.setStroke(stroke);// 设置笔画对象</span><br><span class="line">         //指定弧度的圆角矩形</span><br><span class="line">         RoundRectangle2D.Float round = new RoundRectangle2D.Float(matrixWidth/5*2, matrixHeigh/5*2, matrixWidth/5, matrixHeigh/5,20,20);</span><br><span class="line">         g2.setColor(Color.white);</span><br><span class="line">         g2.draw(round);// 绘制圆弧矩形</span><br><span class="line">         </span><br><span class="line">         //设置logo 有一道灰色边框</span><br><span class="line">         BasicStroke stroke2 = new BasicStroke(1,BasicStroke.CAP_ROUND,BasicStroke.JOIN_ROUND); </span><br><span class="line">         g2.setStroke(stroke2);// 设置笔画对象</span><br><span class="line">         RoundRectangle2D.Float round2 = new RoundRectangle2D.Float(matrixWidth/5*2+2, matrixHeigh/5*2+2, matrixWidth/5-4, matrixHeigh/5-4,20,20);</span><br><span class="line">         g2.setColor(new Color(128,128,128));</span><br><span class="line">         g2.draw(round2);// 绘制圆弧矩形</span><br><span class="line">         </span><br><span class="line">         g2.dispose();</span><br><span class="line">         matrixImage.flush() ;</span><br><span class="line">         return matrixImage ;</span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>然后测试类生成一个二维码:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">try &#123;</span><br><span class="line">    BufferedImage logo=null;</span><br><span class="line">	logo = ImageIO.read(new File(&quot;D:\\Documents\\Pictures\\lovewallpaper\\test.jpg&quot;));</span><br><span class="line">	BufferedImage image = EncodeTest.Encode_QR_CODE(&quot;https://www.baidu.com&quot;,logo);</span><br><span class="line">	ImageIO.write(image, &quot;jpg&quot;, new File(&quot;d:\\logo.jpg&quot;));</span><br><span class="line">     </span><br><span class="line"> &#125; catch (Exception e) &#123;</span><br><span class="line">     e.printStackTrace();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>这样就生成了一个带logo的二维码，还是挺简单的，使用可以扫描的工具;因为内容是一个链接所以也没可能会跳转到这个链接。</p>
+<p><strong>2、解析二维码和其他的解析方式一样</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">BufferedImageLuminanceSource </span><br><span class="line"> import com.google.zxing.LuminanceSource;</span><br><span class="line"> </span><br><span class="line"> import java.awt.Graphics2D;</span><br><span class="line"> import java.awt.geom.AffineTransform;</span><br><span class="line"> import java.awt.image.BufferedImage;</span><br><span class="line"> </span><br><span class="line"> public final class BufferedImageLuminanceSource extends LuminanceSource &#123;</span><br><span class="line"> </span><br><span class="line">   private final BufferedImage image;</span><br><span class="line">   private final int left;</span><br><span class="line">   private final int top;</span><br><span class="line"> </span><br><span class="line">   public BufferedImageLuminanceSource(BufferedImage image) &#123;</span><br><span class="line">     this(image, 0, 0, image.getWidth(), image.getHeight());</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   public BufferedImageLuminanceSource(BufferedImage image, int left, int top, int width, int height) &#123;</span><br><span class="line">     super(width, height);</span><br><span class="line"> </span><br><span class="line">     int sourceWidth = image.getWidth();</span><br><span class="line">     int sourceHeight = image.getHeight();</span><br><span class="line">     if (left + width &gt; sourceWidth || top + height &gt; sourceHeight) &#123;</span><br><span class="line">       throw new IllegalArgumentException(&quot;Crop rectangle does not fit within image data.&quot;);</span><br><span class="line">     &#125;</span><br><span class="line"> </span><br><span class="line">     for (int y = top; y &lt; top + height; y++) &#123;</span><br><span class="line">       for (int x = left; x &lt; left + width; x++) &#123;</span><br><span class="line">         if ((image.getRGB(x, y) &amp; 0xFF000000) == 0) &#123;</span><br><span class="line">           image.setRGB(x, y, 0xFFFFFFFF); // = white</span><br><span class="line">         &#125;</span><br><span class="line">       &#125;</span><br><span class="line">     &#125;</span><br><span class="line"> </span><br><span class="line">     this.image = new BufferedImage(sourceWidth, sourceHeight, BufferedImage.TYPE_BYTE_GRAY);</span><br><span class="line">     this.image.getGraphics().drawImage(image, 0, 0, null);</span><br><span class="line">     this.left = left;</span><br><span class="line">     this.top = top;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   @Override</span><br><span class="line">   public byte[] getRow(int y, byte[] row) &#123;</span><br><span class="line">     if (y &lt; 0 || y &gt;= getHeight()) &#123;</span><br><span class="line">       throw new IllegalArgumentException(&quot;Requested row is outside the image: &quot; + y);</span><br><span class="line">     &#125;</span><br><span class="line">     int width = getWidth();</span><br><span class="line">     if (row == null || row.length &lt; width) &#123;</span><br><span class="line">       row = new byte[width];</span><br><span class="line">     &#125;</span><br><span class="line">     image.getRaster().getDataElements(left, top + y, width, 1, row);</span><br><span class="line">     return row;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   @Override</span><br><span class="line">   public byte[] getMatrix() &#123;</span><br><span class="line">     int width = getWidth();</span><br><span class="line">     int height = getHeight();</span><br><span class="line">     int area = width * height;</span><br><span class="line">     byte[] matrix = new byte[area];</span><br><span class="line">     image.getRaster().getDataElements(left, top, width, height, matrix);</span><br><span class="line">     return matrix;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   @Override</span><br><span class="line">   public boolean isCropSupported() &#123;</span><br><span class="line">     return true;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   @Override</span><br><span class="line">   public LuminanceSource crop(int left, int top, int width, int height) &#123;</span><br><span class="line">     return new BufferedImageLuminanceSource(image, this.left + left, this.top + top, width, height);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   @Override</span><br><span class="line">   public boolean isRotateSupported() &#123;</span><br><span class="line">     return true;</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line">   @Override</span><br><span class="line">   public LuminanceSource rotateCounterClockwise() &#123;</span><br><span class="line"> </span><br><span class="line">       int sourceWidth = image.getWidth();</span><br><span class="line">     int sourceHeight = image.getHeight();</span><br><span class="line"> </span><br><span class="line">     AffineTransform transform = new AffineTransform(0.0, -1.0, 1.0, 0.0, 0.0, sourceWidth);</span><br><span class="line"> </span><br><span class="line">     BufferedImage rotatedImage = new BufferedImage(sourceHeight, sourceWidth, BufferedImage.TYPE_BYTE_GRAY);</span><br><span class="line"> </span><br><span class="line">     Graphics2D g = rotatedImage.createGraphics();</span><br><span class="line">     g.drawImage(image, transform, null);</span><br><span class="line">     g.dispose();</span><br><span class="line"> </span><br><span class="line">     int width = getWidth();</span><br><span class="line">     return new BufferedImageLuminanceSource(rotatedImage, top, sourceWidth - (left + width), getHeight(), width);</span><br><span class="line">   &#125;</span><br><span class="line"> </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public static void main(String[] args) throws IOException, NotFoundException &#123;</span><br><span class="line">        MultiFormatReader formatReader = new MultiFormatReader();</span><br><span class="line">       String filePath = &quot;d:\\logo.jpg&quot;;</span><br><span class="line">       File file = new File(filePath);</span><br><span class="line">       BufferedImage image = ImageIO.read(file);</span><br><span class="line">       LuminanceSource source = new BufferedImageLuminanceSource(image);</span><br><span class="line">       Binarizer binarizer = new HybridBinarizer(source);</span><br><span class="line">       BinaryBitmap binaryBitmap = new BinaryBitmap(binarizer);</span><br><span class="line">       Map hints = new HashMap();</span><br><span class="line">       hints.put(EncodeHintType.CHARACTER_SET, &quot;UTF-8&quot;);</span><br><span class="line">       Result result = formatReader.decode(binaryBitmap,hints);</span><br><span class="line"></span><br><span class="line">       System.out.println(&quot;result = &quot;+ result.toString());</span><br><span class="line">       System.out.println(&quot;resultFormat = &quot;+ result.getBarcodeFormat());</span><br><span class="line">       System.out.println(&quot;resultText = &quot;+ result.getText());</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+ 
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------���Ľ���<i class="fa fa-paw"></i>��л�����Ķ�-------------</div>
+    
+</div>
+      </div>
+    
+<div>
+      
+        
+      
+</div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java-Tool/" rel="tag"><i class="fa fa-tag"></i> Java Tool</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/06/Java类加载器/" rel="next" title="Java类加载器">
+                <i class="fa fa-chevron-left"></i> Java类加载器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/06/Java-生成Zxing二维码/" rel="prev" title="Java 生成Zxing二维码">
+                Java 生成Zxing二维码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/th.jpg"
+                alt="EzHomeSixGod" />
+            
+              <p class="site-author-name" itemprop="name">EzHomeSixGod</p>
+              <p class="site-description motion-element" itemprop="description">理想公式：try {t = "love";return t;} catch (Exception e) {t = "money";return t;} finally {t = "money and love";return t;}</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.github.com/EzHomeSixGod" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-globe"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/c3a3fa14c147" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-globe"></i>简书</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#java-利用Zxing-生成二维码-带Logo"><span class="nav-number">1.</span> <span class="nav-text">java 利用Zxing 生成二维码(带Logo)</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">EzHomeSixGod</span>
+
+  
+</div>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+-->
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytjh1FSk';
+      var conf = '9d90ac5cdbc9a69156370728bd9452eb';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+</body>
+</html>
